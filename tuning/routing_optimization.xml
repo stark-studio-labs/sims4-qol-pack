@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Stark QoL Pack: Routing/Pathfinding Optimization
+
+  Reduces pathfinding recalculation frequency for Sims that are not
+  actively navigating. When many Sims are on a lot, the pathfinding
+  system generates excessive route recalculations that consume tick
+  budget without visible benefit.
+
+  These overrides extend the minimum interval between pathfinding
+  recalculations for idle and low-priority Sims.
+
+  Conflicts with: None known
+  Compatible with: All tested mods (pathfinding tuning is rarely overridden)
+-->
+<I s="routing_optimization" n="StarkQoL_Routing">
+
+  <!--
+    Minimum interval between route recalculations for non-active Sims
+    (in simulation ticks).
+    Vanilla: 1 (every tick)  |  StarkQoL: 4
+
+    Sims that are idle or in a non-routing state don't need pathfinding
+    recalculated every single tick. Extending to every 4th tick reduces
+    pathfinding load by 75% for idle Sims.
+  -->
+  <T n="idle_route_recalc_interval">4</T>
+
+  <!--
+    Maximum pathfinding calculations per tick across all Sims.
+    Vanilla: unlimited  |  StarkQoL: 6
+
+    Caps the number of Sims that can run pathfinding in a single tick.
+    Remaining requests are queued for the next tick. Prevents pathfinding
+    spikes during events or gatherings where many Sims start moving at once.
+  -->
+  <T n="max_pathfinding_per_tick">6</T>
+
+  <!--
+    Route cache duration (in simulation ticks).
+    Vanilla: 10  |  StarkQoL: 20
+
+    How long a computed route remains valid before it must be recalculated.
+    Doubling this reduces redundant pathfinding for Sims walking familiar
+    paths (e.g., kitchen to dining table).
+  -->
+  <T n="route_cache_duration">20</T>
+
+</I>

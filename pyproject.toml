@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sims4-qol-pack"
+version = "0.1.0"
+description = "Unified quality-of-life mod pack for The Sims 4"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.7"
+authors = [
+    {name = "Stark Labs", email = "studio@starklabs.dev"},
+]
+keywords = ["sims4", "modding", "quality-of-life"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.7",
+    "Topic :: Games/Entertainment :: Simulation",
+]
+
+dependencies = [
+    "sims4-stark-framework>=0.1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/stark-studio-labs/sims4-qol-pack"
+Repository = "https://github.com/stark-studio-labs/sims4-qol-pack"
+Issues = "https://github.com/stark-studio-labs/sims4-qol-pack/issues"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+target-version = "py37"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]

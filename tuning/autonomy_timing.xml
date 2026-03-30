@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Stark QoL Pack: Autonomy Timing Override
+
+  Reduces how frequently idle Sims re-evaluate autonomy requests.
+  The vanilla game runs autonomy evaluation every idle tick, which scales as
+  O(active_sims * active_objects * available_interactions) and causes the
+  simulation to desync from the game clock on lots with 8+ Sims.
+
+  This override extends the minimum interval between autonomy evaluations,
+  reducing CPU load without noticeably changing Sim behavior.
+
+  Conflicts with:
+    - MCCC "Autonomy Scan Interval" setting (if changed from default)
+    - Any mod overriding autonomy.autonomy_modes_data tuning
+
+  Compatible with:
+    - TurboDriver's Simulation Unclogger (different mechanism: kills stuck actions)
+    - LittleMsSam's Simulation Timeline Fix
+-->
+<I s="autonomy_timing_override" n="StarkQoL_AutonomyTiming">
+
+  <!--
+    Autonomy re-evaluation minimum interval (in Sim minutes).
+    Vanilla: 5  |  StarkQoL: 10
+
+    Idle Sims wait at least this many Sim-minutes before running another
+    full autonomy evaluation. Doubles the vanilla interval, halving the
+    number of expensive O(n*m) evaluations without visible behavior change.
+
+    Values below 5 increase lag. Values above 20 cause Sims to stand idle
+    too long before picking a new activity.
+  -->
+  <T n="autonomy_reevaluation_interval_min">10</T>
+
+  <!--
+    Multitasking break interval (in Sim minutes).
+    Vanilla: 15  |  StarkQoL: 30
+
+    How often Sims interrupt their current activity to check if a higher-
+    priority action is available. Doubling this reduces mid-task autonomy
+    evaluations, which are the second-largest source of simulation lag.
+
+    Values below 10 cause Sims to constantly start and stop activities.
+    Values above 60 mean Sims rarely switch tasks autonomously.
+  -->
+  <T n="multitasking_break_interval_min">30</T>
+
+  <!--
+    Maximum simultaneous autonomy requests per tick.
+    Vanilla: 8  |  StarkQoL: 4
+
+    Caps the number of Sims that can run autonomy evaluation in a single
+    simulation tick. Remaining Sims are deferred to the next tick. This
+    prevents the single-tick CPU spike that causes the game clock to stutter.
+
+    Values below 2 cause noticeably delayed reactions on large lots.
+    Values above 8 provide no benefit (vanilla bottleneck).
+  -->
+  <T n="max_autonomy_requests_per_tick">4</T>
+
+</I>

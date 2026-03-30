@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Stark QoL Pack: Time Scale Override
+
+  Adjusts the game clock speed parameters to prevent simulation desync.
+  The vanilla game advances the clock at a fixed rate regardless of whether
+  the simulation has finished processing the current tick. When processing
+  takes longer than the tick budget (common with 8+ Sims), the clock races
+  ahead of the simulation, causing visible lag: Sims standing idle, head
+  bobbing, Speed 3 running at Speed 1.
+
+  This override reduces the clock advance rate at Speed 2 and Speed 3 to
+  give the simulation more time to complete each tick before the clock
+  advances. The result: fewer desync events, smoother simulation at high
+  speed, and Sims that respond to player commands more quickly.
+
+  Conflicts with:
+    - MCCC "Game Time Speed" setting (both modify the same tuning)
+    - SrslySims Simulation Lag Fix (functionally equivalent; do not stack)
+
+  Compatible with:
+    - TurboDriver's Simulation Unclogger (complementary)
+-->
+<I s="time_scale_override" n="StarkQoL_TimeScale">
+
+  <!--
+    Game clock multiplier at Speed 1 (normal).
+    Vanilla: 25  |  StarkQoL: 25 (unchanged)
+
+    No adjustment needed at normal speed; simulation easily keeps up.
+    Unit: Sim-milliseconds per real-millisecond.
+  -->
+  <T n="speed_1_time_scale">25</T>
+
+  <!--
+    Game clock multiplier at Speed 2 (fast).
+    Vanilla: 100  |  StarkQoL: 75
+
+    25% reduction gives the simulation headroom on large lots.
+    Perceptually, Speed 2 still feels fast but Sims don't freeze.
+  -->
+  <T n="speed_2_time_scale">75</T>
+
+  <!--
+    Game clock multiplier at Speed 3 (ultra speed).
+    Vanilla: 1000  |  StarkQoL: 500
+
+    50% reduction at Speed 3. This is where desync is most severe;
+    the simulation simply cannot process 8+ Sims at 1000x clock rate.
+    At 500x, Speed 3 still advances time quickly but maintains sync.
+  -->
+  <T n="speed_3_time_scale">500</T>
+
+  <!--
+    Low Performance Mode threshold (milliseconds of desync).
+    Vanilla: 10000  |  StarkQoL: 5000
+
+    The game enters Low Performance Mode when simulation falls this far
+    behind the clock. Lowering the threshold triggers recovery earlier,
+    preventing the long freeze-ups that occur when 10+ seconds of desync
+    accumulate before the game reacts.
+  -->
+  <T n="low_performance_threshold_ms">5000</T>
+
+</I>
