@@ -19,9 +19,7 @@ Teaser types:
 import time
 from dataclasses import dataclass
 
-from stark_framework.core.events import Event, EventBus
-from stark_framework.core.registry import ModRegistry
-from stark_framework.utils.logging import get_logger
+from qol_pack._compat import Event, EventBus, ModRegistry, get_logger
 
 from qol_pack.events import SettingsChangedEvent
 
@@ -114,8 +112,8 @@ class TeaserManager:
     _enabled = True
     _shown_this_session = False
     _session_teaser_key = None
-    _permanently_dismissed = set()
-    _installed_mods = set()
+    _permanently_dismissed: set = set()
+    _installed_mods: set = set()
     _session_start_time = 0.0
 
     @classmethod

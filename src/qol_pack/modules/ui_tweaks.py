@@ -18,9 +18,7 @@ All features are gated by settings -- disabled features are no-ops.
 """
 
 from dataclasses import dataclass
-from stark_framework.core.events import EventBus
-from stark_framework.core.diagnostics import Diagnostics
-from stark_framework.utils.logging import get_logger
+from qol_pack._compat import EventBus, Diagnostics, get_logger
 
 from qol_pack.events import (
     UIEditRequestedEvent,

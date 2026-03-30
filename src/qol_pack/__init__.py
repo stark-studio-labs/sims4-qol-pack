@@ -15,8 +15,7 @@ __version__ = "0.2.0"
 __author__ = "Stark Labs"
 __mod_id__ = "stark_qol_pack"
 
-from stark_framework.core.registry import ModRegistry
-from stark_framework.utils.logging import get_logger
+from qol_pack._compat import ModRegistry, get_logger, Diagnostics, _HAS_FRAMEWORK
 
 log = get_logger("qol_pack")
 
@@ -70,7 +69,6 @@ def _init_core():
             log.info(f"Core system initialized: {name}")
         except Exception as exc:
             log.error(f"Failed to initialize core system: {name}", error=str(exc))
-            from stark_framework.core.diagnostics import Diagnostics
             Diagnostics.record_error(
                 mod_id=__mod_id__,
                 error=exc,
@@ -97,7 +95,6 @@ def _init_modules():
         except Exception as exc:
             log.error(f"Failed to initialize module: {name}", error=str(exc))
             # Record with framework diagnostics so it shows in health reports
-            from stark_framework.core.diagnostics import Diagnostics
             Diagnostics.record_error(
                 mod_id=__mod_id__,
                 error=exc,

@@ -18,8 +18,7 @@ import os
 import json
 import copy
 
-from stark_framework.core.events import EventBus
-from stark_framework.utils.logging import get_logger
+from qol_pack._compat import EventBus, get_logger
 
 from qol_pack.events import SettingsChangedEvent, PresetAppliedEvent
 
@@ -212,7 +211,7 @@ class SettingsManager:
     Every change publishes a SettingsChangedEvent so modules can react.
     """
 
-    _settings = {}
+    _settings: dict = {}
     _settings_path = None
     _loaded = False
 

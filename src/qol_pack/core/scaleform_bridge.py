@@ -21,8 +21,7 @@ Usage:
 """
 
 from dataclasses import dataclass, field
-from stark_framework.core.events import Event, EventBus
-from stark_framework.utils.logging import get_logger
+from qol_pack._compat import Event, EventBus, Diagnostics, get_logger
 
 from qol_pack.modules.ui_tweaks import EDITABLE_FIELDS
 
@@ -139,7 +138,7 @@ class ClickHandlerRegistry:
     use -- call ScaleformBridge.register_click_handler() instead.
     """
 
-    _handlers = {}  # (element_id, click_type) -> handler_fn
+    _handlers: dict = {}  # (element_id, click_type) -> handler_fn
 
     @classmethod
     def register(cls, element_id, click_type, handler_fn):
@@ -341,7 +340,6 @@ class ScaleformBridge:
                 click_type=click_type,
                 error=str(exc),
             )
-            from stark_framework.core.diagnostics import Diagnostics
             Diagnostics.record_error(
                 mod_id=MOD_ID,
                 error=exc,

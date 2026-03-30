@@ -25,8 +25,7 @@ All hooks are reversible via uninstall() which restores original methods.
 import time
 from dataclasses import dataclass, field
 
-from stark_framework.core.events import Event, EventBus
-from stark_framework.utils.logging import get_logger
+from qol_pack._compat import Event, EventBus, get_logger
 
 log = get_logger("qol.autonomy_throttle")
 
@@ -110,7 +109,7 @@ class AutonomyThrottle:
     _tick_counter = 0
     _skipped_ticks = 0
     _total_ticks = 0
-    _tick_times = []        # Rolling window of tick durations (ms)
+    _tick_times: list = []        # Rolling window of tick durations (ms)
     _autonomy_queue_depth = 0
 
     @classmethod

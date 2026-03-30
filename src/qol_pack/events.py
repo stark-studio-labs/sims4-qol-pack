@@ -15,7 +15,7 @@ Usage:
 """
 
 from dataclasses import dataclass, field
-from stark_framework.core.events import Event
+from qol_pack._compat import Event
 
 
 # ── UI Tweaks Events ────────────────────────────────────────────────

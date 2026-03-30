@@ -14,9 +14,7 @@ diagnostics. Successful injections publish `AffordanceInjectedEvent`.
 """
 
 from dataclasses import dataclass
-from stark_framework.core.events import Event, EventBus
-from stark_framework.core.diagnostics import Diagnostics
-from stark_framework.utils.logging import get_logger
+from qol_pack._compat import Event, EventBus, Diagnostics, get_logger
 
 # Game engine imports -- graceful degradation outside the Sims 4 runtime
 try:
@@ -68,10 +66,10 @@ class AffordanceInjector:
     """
 
     # {target_type: [(interaction_class, filter_fn, source_mod), ...]}
-    _pending = {}
+    _pending: dict = {}
 
     # {target_type: [{interaction, source_mod, tuning_id, interaction_name}, ...]}
-    _injection_registry = {}
+    _injection_registry: dict = {}
 
     _installed = False
 

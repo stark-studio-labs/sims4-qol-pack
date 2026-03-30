@@ -16,9 +16,7 @@ Strategies:
 
 import time
 
-from stark_framework.core.events import EventBus
-from stark_framework.core.diagnostics import Diagnostics
-from stark_framework.utils.logging import get_logger
+from qol_pack._compat import EventBus, Diagnostics, get_logger
 
 from qol_pack.events import (
     PerformanceReportEvent,
@@ -61,7 +59,7 @@ class PerformanceOptimizer:
     }
 
     # Pathfinding debounce
-    _last_pathfind_time = {}  # sim_id -> timestamp
+    _last_pathfind_time: dict = {}  # sim_id -> timestamp
     _pathfind_debounce_ms = {
         THROTTLE_NONE: 0,
         THROTTLE_LIGHT: 100,
@@ -70,10 +68,10 @@ class PerformanceOptimizer:
     }
 
     # Stat decay deferral
-    _deferred_decay_sims = set()
+    _deferred_decay_sims: set = set()
 
     # FPS tracking for adaptive tuning
-    _frame_times = []
+    _frame_times: list = []
     _max_frame_samples = 60
     _last_report_time = 0.0
     _report_interval = 5.0  # seconds between performance reports

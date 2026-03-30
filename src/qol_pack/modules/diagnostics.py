@@ -19,11 +19,9 @@ import time
 import json
 import traceback as tb_module
 
-from stark_framework.core.events import EventBus
-from stark_framework.core.diagnostics import Diagnostics
-from stark_framework.core.registry import ModRegistry
-from stark_framework.core.injection import InjectionManager
-from stark_framework.utils.logging import get_logger, LogBuffer
+from qol_pack._compat import (
+    EventBus, Diagnostics, ModRegistry, InjectionManager, get_logger, LogBuffer,
+)
 
 from qol_pack.events import (
     ErrorCapturedEvent,
@@ -93,7 +91,7 @@ class QoLDiagnostics:
     _installed = False
     _original_excepthook = None
     _detail_level = "full"  # "simple", "full"
-    _recent_events = []     # Last N events for correlation
+    _recent_events: list = []     # Last N events for correlation
     _max_recent_events = 20
     _error_count = 0
 
