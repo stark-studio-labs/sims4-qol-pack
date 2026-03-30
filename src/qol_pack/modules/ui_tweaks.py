@@ -1,5 +1,5 @@
 """
-UI Tweaks -- click-to-edit UI elements for needs, skills, money, relationships, careers.
+UI Tweaks -- click-to-edit UI elements for needs, skills, money, and careers.
 
 Replaces UI Cheats Extension with a Stark Framework-native implementation.
 All edits go through the event bus so other modules (diagnostics, settings)
@@ -9,8 +9,10 @@ Usage (in-game):
     Click on a need bar -> slider appears -> drag to set value
     Click on money display -> numeric input -> type new amount
     Click on skill bar -> slider to set level
-    Click on relationship bar -> slider to set value
     Click on career progress -> set promotion progress
+
+Note: Relationship editing requires a target Sim ID and is not yet implemented.
+It will be added once the relationship panel hook API is finalized.
 
 All features are gated by settings -- disabled features are no-ops.
 """
@@ -47,9 +49,6 @@ EDITABLE_FIELDS = {
     "skill_charisma": {"label": "Charisma", "category": "skills", "min": 0, "max": 10},
     # Household
     "money": {"label": "Household Funds", "category": "household", "min": 0, "max": 9999999},
-    # Relationships
-    "relationship_friendly": {"label": "Friendly", "category": "relationships", "min": -100, "max": 100},
-    "relationship_romantic": {"label": "Romantic", "category": "relationships", "min": -100, "max": 100},
     # Career
     "career_progress": {"label": "Career Progress", "category": "career", "min": 0, "max": 100},
 }
@@ -63,7 +62,7 @@ class UITweaks:
     """
 
     _enabled = True
-    _enabled_categories = {"needs", "skills", "household", "relationships", "career"}
+    _enabled_categories = {"needs", "skills", "household", "career"}
 
     @classmethod
     def install(cls):
@@ -150,9 +149,6 @@ class UITweaks:
             elif category == "household":
                 old_value = _get_household_funds(sim_id)
                 _set_household_funds(sim_id, new_value)
-            elif category == "relationships":
-                old_value = _get_relationship_value(sim_id, field_name)
-                _set_relationship_value(sim_id, field_name, new_value)
             elif category == "career":
                 old_value = _get_career_progress(sim_id)
                 _set_career_progress(sim_id, new_value)

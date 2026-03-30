@@ -17,7 +17,7 @@ class TestUITweaksInstall:
 class TestUITweaksEditRequest:
     def setup_method(self):
         UITweaks._enabled = True
-        UITweaks._enabled_categories = {"needs", "skills", "household", "relationships", "career"}
+        UITweaks._enabled_categories = {"needs", "skills", "household", "career"}
 
     def test_request_edit_valid_field(self):
         result = UITweaks.request_edit(sim_id=1, field_name="need_hunger")
