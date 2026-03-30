@@ -87,6 +87,7 @@ def _init_modules():
         ("build_tools", _init_build_tools),
         ("performance", _init_performance),
         ("auto_updater", _init_auto_updater),
+        ("teasers", _init_teasers),
     ]
 
     for name, init_fn in modules:
@@ -132,6 +133,11 @@ def _init_performance():
 def _init_auto_updater():
     from qol_pack.modules.auto_updater import AutoUpdater
     AutoUpdater.install()
+
+
+def _init_teasers():
+    from qol_pack.teasers import TeaserManager
+    TeaserManager.install()
 
 
 def _init_scaleform_bridge():
