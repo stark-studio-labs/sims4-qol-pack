@@ -11,7 +11,7 @@ Boot sequence:
 4. Check for updates (non-blocking)
 """
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 __author__ = "Stark Labs"
 __mod_id__ = "stark_qol_pack"
 
@@ -47,10 +47,35 @@ def bootstrap():
     )
     log.info("Registered with ModRegistry", version=__version__)
 
-    # Step 2: Initialize modules in dependency order
+    # Step 2: Initialize core infrastructure (must load before modules)
+    _init_core()
+
+    # Step 3: Initialize modules in dependency order
     _init_modules()
 
     log.info("QoL Pack bootstrap complete")
+
+
+def _init_core():
+    """Load core infrastructure: Scaleform bridge, affordance injector, autonomy throttle."""
+    core_systems = [
+        ("scaleform_bridge", _init_scaleform_bridge),
+        ("affordance_injector", _init_affordance_injector),
+        ("autonomy_throttle", _init_autonomy_throttle),
+    ]
+
+    for name, init_fn in core_systems:
+        try:
+            init_fn()
+            log.info(f"Core system initialized: {name}")
+        except Exception as exc:
+            log.error(f"Failed to initialize core system: {name}", error=str(exc))
+            from stark_framework.core.diagnostics import Diagnostics
+            Diagnostics.record_error(
+                mod_id=__mod_id__,
+                error=exc,
+                context=f"Initializing core system: {name}",
+            )
 
 
 def _init_modules():
@@ -107,3 +132,18 @@ def _init_performance():
 def _init_auto_updater():
     from qol_pack.modules.auto_updater import AutoUpdater
     AutoUpdater.install()
+
+
+def _init_scaleform_bridge():
+    from qol_pack.core.scaleform_bridge import ScaleformBridge
+    ScaleformBridge.install()
+
+
+def _init_affordance_injector():
+    from qol_pack.core.affordance_injector import AffordanceInjector
+    AffordanceInjector.install()
+
+
+def _init_autonomy_throttle():
+    from qol_pack.core.autonomy_throttle import AutonomyThrottle
+    AutonomyThrottle.install()
