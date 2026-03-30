@@ -27,21 +27,21 @@ from qol_pack.modules.ui_tweaks import EDITABLE_FIELDS
 
 # Game API imports -- graceful degradation outside the game (for tests)
 try:
-    from distributor.system import Distributor
+    from distributor.system import Distributor  # type: ignore[import-not-found]
     _HAS_DISTRIBUTOR = True
 except ImportError:
     Distributor = None
     _HAS_DISTRIBUTOR = False
 
 try:
-    from ui.ui_dialog import UiDialogBase
+    from ui.ui_dialog import UiDialogBase  # type: ignore[import-not-found]
     _HAS_UI_DIALOG = True
 except ImportError:
     UiDialogBase = None
     _HAS_UI_DIALOG = False
 
 try:
-    import sims4.commands
+    import sims4.commands  # type: ignore[import-not-found]
     _HAS_COMMANDS = True
 except ImportError:
     sims4 = None
@@ -488,7 +488,7 @@ def _extract_sim_id(args):
 
     # Fallback: get active Sim from game services
     try:
-        import services
+        import services  # type: ignore[import-not-found]
         client = services.client_manager().get_first_client()
         if client is not None and client.active_sim is not None:
             return client.active_sim.sim_id

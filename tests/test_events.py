@@ -1,7 +1,5 @@
 """Tests for QoL Pack event definitions."""
 
-from stark_framework.core.events import EventBus
-
 from qol_pack.events import (
     UIEditRequestedEvent,
     UIValueChangedEvent,
@@ -19,6 +17,7 @@ from qol_pack.events import (
     UpdateAvailableEvent,
     UpdateInstalledEvent,
 )
+from qol_pack._compat import EventBus
 
 
 class TestEventConstruction:

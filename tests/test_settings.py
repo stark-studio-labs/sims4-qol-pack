@@ -2,9 +2,8 @@
 
 import json
 
-from stark_framework.core.events import EventBus
-
 from qol_pack.events import SettingsChangedEvent, PresetAppliedEvent
+from qol_pack._compat import EventBus
 from qol_pack.modules.settings import (
     SettingsManager,
     DEFAULTS,

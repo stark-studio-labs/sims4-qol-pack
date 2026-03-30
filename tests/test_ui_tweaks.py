@@ -1,8 +1,7 @@
 """Tests for the UI Tweaks module."""
 
-from stark_framework.core.events import EventBus
-
 from qol_pack.events import UIEditRequestedEvent, UIValueChangedEvent, SettingsChangedEvent
+from qol_pack._compat import EventBus
 from qol_pack.modules.ui_tweaks import UITweaks, EDITABLE_FIELDS
 
 

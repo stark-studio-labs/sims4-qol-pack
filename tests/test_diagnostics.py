@@ -2,11 +2,8 @@
 
 import sys
 
-from stark_framework.core.events import EventBus
-from stark_framework.core.registry import ModRegistry
-from stark_framework.core.diagnostics import Diagnostics
-
 from qol_pack.events import ErrorCapturedEvent, ConflictDetectedEvent, SettingsChangedEvent
+from qol_pack._compat import EventBus, ModRegistry, Diagnostics
 from qol_pack.modules.diagnostics import (
     QoLDiagnostics,
     _identify_mod_from_traceback,

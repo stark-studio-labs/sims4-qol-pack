@@ -268,7 +268,7 @@ def _snap(value, precision):
 def _get_game_object(object_id):
     """Resolve an object_id to a GameObject. Returns None outside game."""
     try:
-        import services
+        import services  # type: ignore[import-not-found]
         object_manager = services.object_manager()
         if object_manager is None:
             return None
@@ -295,7 +295,7 @@ def _set_object_position(object_id, x, y, z):
     if obj is None:
         return False
     try:
-        from sims4.math import Vector3
+        from sims4.math import Vector3  # type: ignore[import-not-found]
         obj.position = Vector3(x, y, z)
         return True
     except (ImportError, AttributeError) as exc:
@@ -326,7 +326,7 @@ def _set_object_rotation(object_id, pitch, yaw, roll):
     if obj is None:
         return False
     try:
-        from sims4.math import Quaternion
+        from sims4.math import Quaternion  # type: ignore[import-not-found]
         import math
         # Simplified Euler-to-quaternion (Y-axis primary)
         rad = math.radians(yaw)
@@ -375,7 +375,7 @@ def _set_object_scale(object_id, sx, sy, sz):
 def _is_on_lot(x, y, z):
     """Check if coordinates are within the current lot boundaries."""
     try:
-        import services
+        import services  # type: ignore[import-not-found]
         lot = services.active_lot()
         if lot is None:
             return True  # Can't check, assume on-lot

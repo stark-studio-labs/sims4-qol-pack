@@ -4,9 +4,8 @@ import json
 import os
 import time
 
-from stark_framework.core.events import EventBus
-
 from qol_pack.events import UpdateAvailableEvent, SettingsChangedEvent
+from qol_pack._compat import EventBus
 from qol_pack.modules.auto_updater import (
     AutoUpdater,
     _is_newer,

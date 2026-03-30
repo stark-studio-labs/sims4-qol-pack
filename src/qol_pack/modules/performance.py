@@ -356,7 +356,7 @@ class PerformanceOptimizer:
 def _get_sim_count():
     """Get the number of Sims currently loaded."""
     try:
-        import services
+        import services  # type: ignore[import-not-found]
         manager = services.sim_info_manager()
         return len(list(manager.get_all())) if manager else 0
     except (ImportError, AttributeError):
@@ -366,7 +366,7 @@ def _get_sim_count():
 def _get_active_autonomy_count():
     """Get the number of Sims currently running autonomy."""
     try:
-        import services
+        import services  # type: ignore[import-not-found]
         count = 0
         sim_info_manager = services.sim_info_manager()
         if sim_info_manager is None:

@@ -1,13 +1,12 @@
 """Tests for the Performance Optimizer module."""
 
-from stark_framework.core.events import EventBus
-
 from qol_pack.events import (
     BuildModeEnteredEvent,
     BuildModeExitedEvent,
     ThrottleLevelChangedEvent,
     SettingsChangedEvent,
 )
+from qol_pack._compat import EventBus
 from qol_pack.modules.performance import (
     PerformanceOptimizer,
     THROTTLE_NONE,

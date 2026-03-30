@@ -1,7 +1,6 @@
 """Tests for the freemium teaser system."""
 
 import pytest
-from stark_framework.core.registry import ModRegistry
 
 from qol_pack.teasers import (
     TeaserManager,
@@ -10,6 +9,7 @@ from qol_pack.teasers import (
     TEASER_CATALOG,
 )
 from qol_pack.events import SettingsChangedEvent
+from qol_pack._compat import ModRegistry, EventBus
 
 
 @pytest.fixture(autouse=True)
@@ -271,7 +271,6 @@ class TestSettingsIntegration:
     """Tests for settings-driven behavior."""
 
     def test_disable_via_settings_event(self):
-        from stark_framework.core.events import EventBus
         TeaserManager.install()
         assert TeaserManager._enabled is True
 
@@ -286,7 +285,6 @@ class TestSettingsIntegration:
         assert TeaserManager._enabled is False
 
     def test_dismissed_loaded_via_settings_event(self):
-        from stark_framework.core.events import EventBus
         TeaserManager.install()
 
         EventBus.publish(

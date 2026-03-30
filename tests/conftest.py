@@ -12,22 +12,11 @@ import pytest
 # Add src to path so imports work
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
-# Add stark_framework to path (sibling project)
-_stark_path = os.path.join(
-    os.path.dirname(__file__), "..", "..", "sims4-stark-framework", "src"
-)
-if os.path.exists(_stark_path):
-    sys.path.insert(0, _stark_path)
-
 
 @pytest.fixture(autouse=True)
 def clean_framework_state():
     """Reset all framework singletons before each test."""
-    from stark_framework.core.events import EventBus
-    from stark_framework.core.registry import ModRegistry
-    from stark_framework.core.injection import InjectionManager
-    from stark_framework.core.diagnostics import Diagnostics
-    from stark_framework.utils.logging import LogBuffer
+    from qol_pack._compat import EventBus, ModRegistry, InjectionManager, Diagnostics, LogBuffer
 
     EventBus.clear()
     EventBus.enable_logging(False)
@@ -48,7 +37,7 @@ def clean_framework_state():
 @pytest.fixture
 def registered_qol():
     """Register the QoL Pack with ModRegistry (no module init)."""
-    from stark_framework.core.registry import ModRegistry
+    from qol_pack._compat import ModRegistry
     ModRegistry.register(
         mod_id="stark_qol_pack",
         name="Stark QoL Pack",
@@ -67,7 +56,7 @@ def settings_file(tmp_path):
 @pytest.fixture
 def captured_events():
     """Capture all published events for assertion."""
-    from stark_framework.core.events import EventBus, Event
+    from qol_pack._compat import EventBus, Event
 
     captured = []
 

@@ -34,22 +34,22 @@ MOD_ID = "stark_qol_pack.autonomy_throttle"
 # ── Game API imports (deferred, may not be available outside game) ──────
 
 try:
-    import services
+    import services  # type: ignore[import-not-found]
 except ImportError:
     services = None
 
 try:
-    from autonomy.autonomy_component import AutonomyComponent
+    from autonomy.autonomy_component import AutonomyComponent  # type: ignore[import-not-found]
 except ImportError:
     AutonomyComponent = None
 
 try:
-    from sims4.tuning.instance_manager import InstanceManager
+    from sims4.tuning.instance_manager import InstanceManager  # type: ignore[import-not-found]
 except ImportError:
     InstanceManager = None
 
 try:
-    from clock import GameClock
+    from clock import GameClock  # type: ignore[import-not-found]
 except ImportError:
     GameClock = None
 

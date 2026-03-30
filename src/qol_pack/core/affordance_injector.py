@@ -18,10 +18,10 @@ from qol_pack._compat import Event, EventBus, Diagnostics, get_logger
 
 # Game engine imports -- graceful degradation outside the Sims 4 runtime
 try:
-    import services
-    import sims4.resources
-    from sims4.resources import Types
-    from interactions.base.super_interaction import SuperInteraction
+    import services  # type: ignore[import-not-found]
+    import sims4.resources  # type: ignore[import-not-found]
+    from sims4.resources import Types  # type: ignore[import-not-found]
+    from interactions.base.super_interaction import SuperInteraction  # type: ignore[import-not-found]
     _GAME_AVAILABLE = True
 except ImportError:
     services = None

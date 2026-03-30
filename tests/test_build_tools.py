@@ -1,13 +1,12 @@
 """Tests for the Build Tools module."""
 
-from stark_framework.core.events import EventBus
-
 from qol_pack.events import (
     BuildModeEnteredEvent,
     BuildModeExitedEvent,
     ObjectMovedEvent,
     SettingsChangedEvent,
 )
+from qol_pack._compat import EventBus
 from qol_pack.modules.build_tools import BuildTools, TransformState, _snap
 
 
